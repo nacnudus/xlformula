@@ -1,0 +1,19 @@
+Package: xlformula
+Title: Tokenize Excel Formulas
+Version: 0.0.0.9000
+Authors@R: c(
+    person("Duncan", "Garmonsway", email = "duncan.garmonsway@gmail.com", role = c("aut", "cre")),
+    person("ewbi", role = c("ctb", "cph"), comment = "Author of algorithm on which code is based"),
+    person("lishen2", role = c("ctb", "cph"), comment = "Author of included Excel_formula_parser_cpp code")
+    )
+Description: Tokenizes Excel spreadsheet formulas into a data frame, using the
+    algorithm developed by ewbi
+    <http://ewbi.blogs.com/develops/2004/12/excel_formula_p.html> and ported to
+    C++ by lishen2 <https://github.com/lishen2/Excel_formula_parser_cpp>.
+Depends: R (>= 3.3.2)
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+LinkingTo: Rcpp
+Imports: Rcpp
+RoxygenNote: 5.0.1.9000

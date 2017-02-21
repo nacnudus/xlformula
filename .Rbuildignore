@@ -1,0 +1,6 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^temp\.R$
+^tests-A1\.xlsx$
+^tests-R1C1\.xlsx$
+^tags$
