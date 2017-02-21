@@ -1,17 +1,12 @@
 #include "Token.h"
 #include "TokenArray.h"
 #include "TokenStack.h"
+#include "pcre.h"
 #include <vector>
 #include <string>
 
 using std::vector;
 using std::string;
-
-namespace pcrecpp
-{
-	class RE;
-}
-using pcrecpp::RE;
 
 namespace ExcelFormula
 {
@@ -23,7 +18,7 @@ namespace ExcelFormula
 		public:
 			FormulaParser(const char* szFormula);
 
-			/** scan formula and translate it 
+			/** scan formula and translate it
 			 * into tokens literally
 			 */
 			void parserToToken1();
@@ -64,10 +59,10 @@ namespace ExcelFormula
 
 			TokenStack m_tmpStack;
 
-			RE* m_regex;
+			pcre *m_regex;
 
 	}; //class ExcelFormula
 
 
-} //namespace 
+} //namespace
 

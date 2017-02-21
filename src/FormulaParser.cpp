@@ -2,8 +2,9 @@
 #include "TokenStack.h"
 #include "TokenArray.h"
 #include "StrUtils.h"
-#include "pcrecpp.h"
+#include "pcre.h"
 #include <sstream>
+#include <Rcpp.h>
 
 #define MakeToken TokenAllocer::getToken
 using std::stringstream;
@@ -13,8 +14,16 @@ namespace ExcelFormula
 
 	//ExcelFormula class implement
 	FormulaParser::FormulaParser(const char* szFormula)
-		:m_regex(new RE("^[1-9]{1}(\\.[0-9]+)?E{1}$"))
 		{
+      const char *regex = "^[1-9]{1}(\\.[0-9]+)?E{1}$";
+      const char *error;
+      int   erroffset;
+      m_regex = pcre_compile(regex,
+          PCRE_PARTIAL_SOFT,
+          &error,
+          &erroffset,
+          0);
+
 			m_formula = szFormula;
 			StrUtils::trim(m_formula);
 		}
@@ -129,9 +138,16 @@ namespace ExcelFormula
 
 			// scientific notation check
 
+
+      int          rc;
+      unsigned int offset = 0;
+      unsigned int len   = strlen(value.c_str());
+      int          ovector[100];
+      rc = pcre_exec(m_regex, 0, value.c_str(), len, offset, 0, ovector, sizeof(ovector));
 			if ((OPERATORS_SN).find_first_of(m_formula[index]) != string::npos) {
 				if (value.size() > 1) {
-					if (m_regex->PartialMatch(value.c_str())) {
+					/* if (m_regex->PartialMatch(value.c_str())) { */
+					if (rc >= 0) {
 						value+= m_formula[index];
 						index++;
 						continue;
