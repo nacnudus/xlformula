@@ -6,12 +6,13 @@
 using namespace Rcpp;
 
 // foo2
-List foo2();
-RcppExport SEXP xlformula_foo2() {
+List foo2(CharacterVector formula);
+RcppExport SEXP xlformula_foo2(SEXP formulaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    rcpp_result_gen = Rcpp::wrap(foo2());
+    Rcpp::traits::input_parameter< CharacterVector >::type formula(formulaSEXP);
+    rcpp_result_gen = Rcpp::wrap(foo2(formula));
     return rcpp_result_gen;
 END_RCPP
 }

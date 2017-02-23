@@ -46,8 +46,9 @@ void printParser(FormulaParser& parser)
 
 
 // [[Rcpp::export()]]
-List foo2() {
-	const char szFormula1[] = "=A1A1";
+List foo2(CharacterVector formula) {
+  std::string formula_string = Rcpp::as<std::string>(formula);
+	const char * szFormula1 = formula_string.c_str();
 	FormulaParser parser1(szFormula1);
 	parser1.parserToToken1();
 	parser1.parserToToken2();
