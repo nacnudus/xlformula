@@ -10,14 +10,14 @@ using namespace Rcpp;
 List tokenize_(CharacterVector formula) {
   std::string formula_string = Rcpp::as<std::string>(formula);
 	const char * szFormula1 = formula_string.c_str();
-	FormulaParser parser1(szFormula1);
+	FormulaParser parser(szFormula1);
 
   std::vector<std::string> token;
   std::vector<std::string> type;
   std::vector<std::string> subtype;
   std::vector<int>         level;
 
-	vector<Token*> tokens = parser1.getTokens();
+	vector<Token*> tokens = parser.getTokens();
 	int depth = 0;
 	for(vector<Token*>::iterator it = tokens.begin();
 			it != tokens.end();
