@@ -4,7 +4,7 @@
 #include "StrUtils.h"
 #include "pcre.h"
 #include <sstream>
-#include <Rcpp.h>
+#include <string.h>
 
 #define MakeToken TokenAllocer::getToken
 using std::stringstream;
