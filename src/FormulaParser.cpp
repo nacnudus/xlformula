@@ -79,8 +79,8 @@ namespace ExcelFormula
 
 			if (inString) {
 				if (m_formula[index] == QUOTE_DOUBLE) {
+          value += QUOTE_DOUBLE;
 					if (((index + 2) <= m_formula.size()) && (m_formula[index + 1] == QUOTE_DOUBLE)) {
-						value += QUOTE_DOUBLE;
 						index++;
 					} else {
 						inString = false;
@@ -172,6 +172,7 @@ namespace ExcelFormula
 					m_tmpAry.add(MakeToken(value.c_str(), Token::Unknown));
 					value = "";
 				}
+        value += QUOTE_DOUBLE;
 				inString = true;
 				index++;
 				continue;
