@@ -50,8 +50,6 @@ List foo2(CharacterVector formula) {
   std::string formula_string = Rcpp::as<std::string>(formula);
 	const char * szFormula1 = formula_string.c_str();
 	FormulaParser parser1(szFormula1);
-	parser1.parserToToken1();
-	parser1.parserToToken2();
 
   std::vector<std::string> tokens_vec;
   std::vector<int>         levels_vec;

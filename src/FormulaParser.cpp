@@ -26,6 +26,9 @@ namespace ExcelFormula
 
 			m_formula = szFormula;
 			StrUtils::trim(m_formula);
+
+      parserToToken1();
+      parserToToken2();
 		}
 
 	void FormulaParser::parserToToken1()
