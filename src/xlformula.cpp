@@ -7,7 +7,7 @@ using ExcelFormula::FormulaParser;
 using namespace Rcpp;
 
 // [[Rcpp::export()]]
-List tokenize(CharacterVector formula) {
+List tokenize_(CharacterVector formula) {
   std::string formula_string = Rcpp::as<std::string>(formula);
 	const char * szFormula1 = formula_string.c_str();
 	FormulaParser parser1(szFormula1);

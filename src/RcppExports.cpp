@@ -5,14 +5,14 @@
 
 using namespace Rcpp;
 
-// tokenize
-List tokenize(CharacterVector formula);
-RcppExport SEXP xlformula_tokenize(SEXP formulaSEXP) {
+// tokenize_
+List tokenize_(CharacterVector formula);
+RcppExport SEXP xlformula_tokenize_(SEXP formulaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< CharacterVector >::type formula(formulaSEXP);
-    rcpp_result_gen = Rcpp::wrap(tokenize(formula));
+    rcpp_result_gen = Rcpp::wrap(tokenize_(formula));
     return rcpp_result_gen;
 END_RCPP
 }
