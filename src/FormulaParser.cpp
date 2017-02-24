@@ -92,7 +92,14 @@ namespace ExcelFormula
 				}
 				index++;
 				continue;
-			}
+			} else {
+        if (m_formula[index] == EXCLAMATION) {
+					value += EXCLAMATION;
+          m_tmpAry.add(MakeToken(value.c_str(), Token::Operand, Token::Sheet));
+          value = "";
+          index++;
+        }
+      }
 
 			// single-quoted strings (links)
 			// embeds are double
