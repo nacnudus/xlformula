@@ -1,49 +1,10 @@
 #include "FormulaParser.h"
-#include <string>
-#include <iostream>
-#include "pcre.h"
 #include <Rcpp.h>
 
-using std::cout;
-using std::endl;
-using std::string;
 using ExcelFormula::Token;
 using ExcelFormula::FormulaParser;
 
 using namespace Rcpp;
-
-void printIndent(int i)
-{
-	for(int j = 0; j < i; ++j)
-	{
-		cout << "|";
-	}
-}
-
-void printParser(FormulaParser& parser)
-{
-	vector<Token*> tokens = parser.getTokens();
-
-	int indent = 0;
-	for(vector<Token*>::iterator it = tokens.begin();
-			it != tokens.end();
-			++it)
-	{
-		if((*it)->getSubtype() == Token::Start)
-		{
-			++indent;
-		}
-		printIndent(indent);
-		cout << (*it)->getPrintableString() << endl;
-		if((*it)->getSubtype() == Token::Stop)
-		{
-			--indent;
-		}
-	}
-
-	cout << endl;
-}
-
 
 // [[Rcpp::export()]]
 List foo2(CharacterVector formula) {
