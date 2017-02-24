@@ -8,7 +8,7 @@ namespace ExcelFormula
 		m_type(Unknown),
 		m_subtype(Nothing){}
 
-	Token::Token(const char* szValue, TokenType type): 
+	Token::Token(const char* szValue, TokenType type):
 	m_value(szValue),
 	m_type(type),
 	m_subtype(Nothing) {}
@@ -16,7 +16,7 @@ namespace ExcelFormula
 	Token::Token(const char* szValue, TokenType type, TokenSubtype subtype):
 		m_value(szValue),
 		m_type(type),
-		m_subtype(subtype) {} 
+		m_subtype(subtype) {}
 
 	bool Token::operator==(Token& token) {
 		if (token.getType() == getType()
@@ -27,85 +27,82 @@ namespace ExcelFormula
 			return false;
 	}
 
-	//! return printable string
-	const string Token::getPrintableString()
-	{
-		string printableStr = m_value + " ";
-
+	const string Token::getTokenType()
+  {
 		switch(m_type)
 		{
 			case Operand:
-				printableStr += "<Operand>";
+				return "operand";
 				break;
 			case Function:
-				printableStr += "<Function>";
+				return "function";
 				break;
 			case Subexpression:
-				printableStr += "<Subexpression>";
+				return "subexpression";
 				break;
 			case Argument:
-				printableStr += "<Argument>";
+				return "argument";
 				break;
 			case OperatorPrefix:
-				printableStr += "<OperatorPrefix>";
+				return "operator prefix";
 				break;
 			case OperatorInfix:
-				printableStr += "<OperatorInfix>";
+				return "operator infix";
 				break;
 			case OperatorPostfix:
-				printableStr += "<OperatorPostfix>";
+				return "operator postfix";
 				break;
 			case Whitespace:
-				printableStr += "<Whitespace>";
+				return "whitespace";
 				break;
 			case Unknown:
-				printableStr += "<Unknown>";
+				return "unknown";
 				break;
 		}//token type switch
+	} //func  getTokenType
 
-		printableStr += " ";
-
+	const string Token::getTokenSubtype()
+  {
 		switch(m_subtype)
 		{
 			case Nothing:
-				printableStr += "<Nothing>";
+				return "nothing";
 				break;
 			case Start:
-				printableStr += "<Start>";
+				return "start";
 				break;
 			case Stop:
-				printableStr += "<Stop>";
+				return "stop";
 				break;
 			case Text:
-				printableStr += "<Text>";
+				return "text";
 				break;
 			case Number:
-				printableStr += "<Number>";
+				return "number";
 				break;
 			case Logical:
-				printableStr += "<Logical>";
+				return "logical";
 				break;
 			case Error:
-				printableStr += "<Error>";
+				return "error";
 				break;
 			case Range:
-				printableStr += "<Range>";
+				return "range";
 				break;
 			case Math:
-				printableStr += "<Math>";
+				return "math";
 				break;
 			case Concatenation:
-				printableStr += "<Concatenation>";
+				return "concatenation";
 				break;
 			case Intersection:
-				printableStr += "<Intersection>";
+				return "intersection";
 				break;
 			case Union:
-				printableStr += "<Union>";
+				return "union";
 				break;
 		}//token subtype switch
-		return printableStr;
-	} //func  getPrintableStr
+	} //func  getTokenSubtype
 
 	Token* Token::clone()
 	{
@@ -116,7 +113,7 @@ namespace ExcelFormula
 	{
 		return new Token();
 	}
-	
+
 	Token* TokenAllocer::getToken(const char* szValue, Token::TokenType type)
 	{
 		return new Token(szValue, type);
@@ -133,7 +130,7 @@ namespace ExcelFormula
 		delete pToken;
 	}
 
-}//namespace 
+}//namespace
 
 
 

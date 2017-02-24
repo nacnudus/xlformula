@@ -10,7 +10,7 @@ namespace ExcelFormula
 	class Token{
 
 		public:
-			enum TokenType 
+			enum TokenType
 			{
 				Operand,
 				Function,
@@ -23,7 +23,7 @@ namespace ExcelFormula
 				Unknown
 			};
 
-			enum TokenSubtype 
+			enum TokenSubtype
 			{
 				Nothing,
 				Start,
@@ -50,7 +50,7 @@ namespace ExcelFormula
 			 * @param TokenType type of the token
 			 */
 			Token(const char*, TokenType);
-			
+
 			/**
 			 * @param const char* string value of the token
 			 * @param TokenType type of the token
@@ -61,7 +61,7 @@ namespace ExcelFormula
 			bool operator==(Token& token);
 
 			//! retrieve the token value
-			const char* getValue() {return m_value.c_str();} 
+			const char* getValue() {return m_value.c_str();}
 			const string& getStrValue() {return m_value;}
 
 			//! set the token value
@@ -76,11 +76,13 @@ namespace ExcelFormula
 
 			TokenSubtype getSubtype() {return m_subtype;}
 			void setSubtype(TokenSubtype subtype){
-				m_subtype = subtype; 
+				m_subtype = subtype;
 			}
 
-			//! get printable token string
-			const string getPrintableString();
+      //! get printable token attributes
+			const string getTokenValue() {return m_value;}
+			const string getTokenType();
+			const string getTokenSubtype();
 
 			//! duplicate a another token
 			Token* clone();
