@@ -86,6 +86,9 @@ namespace ExcelFormula
 			case Error:
 				return "error";
 				break;
+			case Path:
+				return "path";
+				break;
 			case Range:
 				return "range";
 				break;

@@ -32,6 +32,7 @@ namespace ExcelFormula
 				Number,
 				Logical,
 				Error,
+				Path,
 				Range,
 				Math,
 				Concatenation,

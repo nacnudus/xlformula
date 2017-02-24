@@ -49,6 +49,7 @@ namespace ExcelFormula
 		const char WHITESPACE    = ' ';
 		const char COMMA         = ',';
 		const char ERROR_START   = '#';
+		const char EXCLAMATION   = '!';
 
 		const string OPERATORS_SN = "+-";
 		const string OPERATORS_INFIX = "+-*/^&=><";
@@ -104,6 +105,10 @@ namespace ExcelFormula
 						index++;
 					} else {
 						inPath = false;
+						value += EXCLAMATION;
+						m_tmpAry.add(MakeToken(value.c_str(), Token::Operand, Token::Path));
+						value = "";
+						index++;
 					}
 				} else {
 					value += m_formula[index];
