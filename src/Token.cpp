@@ -1,22 +1,26 @@
 #include "Token.h"
+#include <Rcpp.h>
 
 namespace ExcelFormula
 {
 
 	Token::Token():
 		m_value(),
+		m_literal(),
 		m_type(Unknown),
 		m_subtype(Nothing){}
 
-	Token::Token(const char* szValue, TokenType type):
+	Token::Token(const char* szValue, const char* szLiteral, TokenType type):
 	m_value(szValue),
+	m_literal(szLiteral),
 	m_type(type),
-	m_subtype(Nothing) {}
+  m_subtype(Nothing) {}
 
-	Token::Token(const char* szValue, TokenType type, TokenSubtype subtype):
+	Token::Token(const char* szValue, const char* szLiteral, TokenType type, TokenSubtype subtype):
 		m_value(szValue),
+		m_literal(szLiteral),
 		m_type(type),
-		m_subtype(subtype) {}
+    m_subtype(subtype) {}
 
 	bool Token::operator==(Token& token) {
 		if (token.getType() == getType()
@@ -92,6 +96,9 @@ namespace ExcelFormula
 			case Sheet:
 				return "sheet";
 				break;
+			case Table:
+				return "table";
+				break;
 			case Range:
 				return "range";
 				break;
@@ -112,7 +119,7 @@ namespace ExcelFormula
 
 	Token* Token::clone()
 	{
-		return TokenAllocer::getToken(getValue(), getType(), getSubtype());
+		return TokenAllocer::getToken(getValue(), getLiteral(), getType(), getSubtype());
 	}
 
 	Token* TokenAllocer::getToken()
@@ -120,15 +127,15 @@ namespace ExcelFormula
 		return new Token();
 	}
 
-	Token* TokenAllocer::getToken(const char* szValue, Token::TokenType type)
+	Token* TokenAllocer::getToken(const char* szValue, const char* szLiteral, Token::TokenType type)
 	{
-		return new Token(szValue, type);
+		return new Token(szValue, szLiteral, type);
 	}
 
-	Token* TokenAllocer::getToken(const char* szValue, Token::TokenType type,
+	Token* TokenAllocer::getToken(const char* szValue, const char* szLiteral, Token::TokenType type,
 			Token::TokenSubtype subtype)
 	{
-		return new Token(szValue, type, subtype);
+		return new Token(szValue, szLiteral, type, subtype);
 	}
 
 	void TokenAllocer::freeToken(Token* pToken)

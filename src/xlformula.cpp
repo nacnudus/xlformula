@@ -12,6 +12,7 @@ List tokenize_(CharacterVector formula) {
 	const char * szFormula1 = formula_string.c_str();
 	FormulaParser parser(szFormula1);
 
+  std::vector<std::string> literal;
   std::vector<std::string> token;
   std::vector<std::string> type;
   std::vector<std::string> subtype;
@@ -27,6 +28,7 @@ List tokenize_(CharacterVector formula) {
 		{
 			++depth;
 		}
+    literal.push_back((*it)->getTokenLiteral());
     token.push_back((*it)->getTokenValue());
     type.push_back((*it)->getTokenType());
     subtype.push_back((*it)->getTokenSubtype());
@@ -37,6 +39,7 @@ List tokenize_(CharacterVector formula) {
 		}
 	}
 
+  CharacterVector literal_out(literal.begin(), literal.end());
   CharacterVector token_out(token.begin(), token.end());
   CharacterVector type_out(type.begin(), type.end());
   CharacterVector subtype_out(subtype.begin(), subtype.end());
@@ -44,6 +47,7 @@ List tokenize_(CharacterVector formula) {
 
   List out = List::create(
       _["level"] = level,
+      _["literal"] = literal_out,
       _["token"] = token_out,
       _["type"] = type_out,
       _["subtype"] = subtype_out);

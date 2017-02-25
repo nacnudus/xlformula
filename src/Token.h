@@ -34,6 +34,7 @@ namespace ExcelFormula
 				Error,
 				Path,
 				Sheet,
+				Table,
 				Range,
 				Math,
 				Concatenation,
@@ -49,21 +50,24 @@ namespace ExcelFormula
 
 			/**
 			 * @param const char* string value of the token
+			 * @param const char* literal value of the token
 			 * @param TokenType type of the token
 			 */
-			Token(const char*, TokenType);
+			Token(const char*, const char*, TokenType);
 
 			/**
 			 * @param const char* string value of the token
+			 * @param const char* literal value of the token
 			 * @param TokenType type of the token
 			 * @param TokenSubType subtype of the token
 			 */
-			Token(const char*, TokenType, TokenSubtype);
+			Token(const char*, const char*, TokenType, TokenSubtype);
 
 			bool operator==(Token& token);
 
 			//! retrieve the token value
 			const char* getValue() {return m_value.c_str();}
+			const char* getLiteral() {return m_literal.c_str();}
 			const string& getStrValue() {return m_value;}
 
 			//! set the token value
@@ -83,6 +87,7 @@ namespace ExcelFormula
 
       //! get printable token attributes
 			const string getTokenValue() {return m_value;}
+			const string getTokenLiteral() {return m_literal;}
 			const string getTokenType();
 			const string getTokenSubtype();
 
@@ -91,6 +96,7 @@ namespace ExcelFormula
 		private:
 
 			string m_value;
+			string m_literal;
 			//string m_printableStr; //string used to print
 			TokenType m_type;
 			TokenSubtype m_subtype;
@@ -102,8 +108,8 @@ namespace ExcelFormula
 	{
 		public:
 			static Token* getToken();
-			static Token* getToken(const char* szValue, Token::TokenType type);
-			static Token* getToken(const char* szValue, Token::TokenType type, Token::TokenSubtype subtype);
+			static Token* getToken(const char* szValue, const char* szLiteral, Token::TokenType type);
+			static Token* getToken(const char* szValue, const char* szLiteral, Token::TokenType type, Token::TokenSubtype subtype);
 			static void freeToken(Token*);
 
 	};

@@ -44,7 +44,8 @@ namespace ExcelFormula
 
 			TokenStack m_tmpStack;
 
-			pcre *m_regex;
+			pcre *m_rx_scientific;
+			pcre *m_rx_r1c1;
 
 			/** scan formula and translate it
 			 * into tokens literally
