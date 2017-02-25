@@ -107,8 +107,8 @@ namespace ExcelFormula
 
 			if (inPath) {
 				if (m_formula[index] == QUOTE_SINGLE) {
-						value += QUOTE_SINGLE;
 					if (((index + 2) <= m_formula.size()) && (m_formula[index + 1] == QUOTE_SINGLE)) {
+						value += QUOTE_SINGLE;
 						index++;
 					} else {
 						inPath = false;
@@ -190,7 +190,6 @@ namespace ExcelFormula
 					m_tmpAry.add(MakeToken(value.c_str(), Token::Unknown));
 					value = "";
 				}
-        value += QUOTE_SINGLE;
 				inPath = true;
 				index++;
 				continue;
