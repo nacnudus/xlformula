@@ -231,7 +231,7 @@ namespace ExcelFormula
 					value = "";
 				}
 				m_tmpAry.add(m_tmpStack.pop());
-				m_tmpAry.add(MakeToken(",", Token::Argument));
+				m_tmpAry.add(MakeToken(";", Token::Argument));
 				m_tmpStack.push(m_tmpAry.add(MakeToken("ARRAYROW", Token::Function, Token::Start)));
 				index++;
 				continue;
