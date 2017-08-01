@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // tokenize_
 List tokenize_(CharacterVector formula);
-RcppExport SEXP xlformula_tokenize_(SEXP formulaSEXP) {
+RcppExport SEXP _xlformula_tokenize_(SEXP formulaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -15,4 +15,14 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(tokenize_(formula));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_xlformula_tokenize_", (DL_FUNC) &_xlformula_tokenize_, 1},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_xlformula(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }
