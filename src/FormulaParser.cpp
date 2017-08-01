@@ -16,7 +16,9 @@ namespace ExcelFormula
 	FormulaParser::FormulaParser(const char* szFormula)
 		{
       const char *rx_scientific = "^[1-9]{1}(\\.[0-9]+)?E{1}$";
-      const char *rx_r1c1 = "^R[1-9]";
+      const char *rx_r1 = "^R[1-9]";
+      const char *rx_r1c1 = "^(R\\[?[0-9]?\\]?C\\[?[0-9]?\\]?)(:R\\[?[0-9]?\\]?C\\[?[0-9]?\\]?)?$";
+      const char *rx_a1 = "^(\\$?[A-Z]*\\$?[1-9]*)(:\\$?[A-Z]*\\$?[1-9]*)?$";
       const char *error;
       int erroffset;
       m_rx_scientific = pcre_compile(rx_scientific,
@@ -24,7 +26,12 @@ namespace ExcelFormula
           &error,
           &erroffset,
           0);
-      m_rx_r1c1 = pcre_compile(rx_r1c1,
+      m_rx_r1 = pcre_compile(rx_r1,
+          0,
+          &error,
+          &erroffset,
+          0);
+      m_rx_a1 = pcre_compile(rx_a1,
           0,
           &error,
           &erroffset,
@@ -234,7 +241,7 @@ namespace ExcelFormula
             if (len == 1) { // Table
               structuredRefLevel++;
             } else {
-              rc = pcre_exec(m_rx_r1c1, 0, value.c_str(), len, offset, 0, ovector, sizeof(ovector));
+              rc = pcre_exec(m_rx_r1, 0, value.c_str(), len, offset, 0, ovector, sizeof(ovector));
               if (rc >= 0) { // R1C1
                 inRange = true;
               } else {
@@ -547,6 +554,7 @@ namespace ExcelFormula
 						pToken->setSubtype(Token::Logical);
 					else
 						pToken->setSubtype(Token::Range);
+        // TODO: Parse r1c1 and a1 regex here
 
 				m_tmpAry.add(pToken);
 				continue;

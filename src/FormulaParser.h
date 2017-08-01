@@ -45,7 +45,9 @@ namespace ExcelFormula
 			TokenStack m_tmpStack;
 
 			pcre *m_rx_scientific;
-			pcre *m_rx_r1c1;
+			pcre *m_rx_r1; // The first part part of an r1c1 range
+			pcre *m_rx_r1c1; // A full r1c1 range
+			pcre *m_rx_a1;   // A full A1 range
 
 			/** scan formula and translate it
 			 * into tokens literally
